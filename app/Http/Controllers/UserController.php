@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ResetPasswordMail;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -42,10 +43,13 @@ class UserController extends Controller
         
         $body = "メールに関連付けられたアカウントのパスワードをリセットするリクエストを受け取りました。<br>
         以下のリンクをクリックしてパスワードをリセットできます";
-        Mail::send('/mail',['action_link'=>$action_link,'body'=>$body], function($message) use ($request) {
-            $message->from('noreply@example.com','Your App Name');
-            $message->to($request->email,'Your name')->subject('Reset Password');
-        });
+        
+        try{
+            Mail::to($request->email)->send(new ResetPasswordMail($body, $action_link));
+        }catch(\Exception $e){
+            return back()->with('error', $e->getMessage());
+        }
+
         return back()->with('success','リセットリングを送りました。');
     }
 
