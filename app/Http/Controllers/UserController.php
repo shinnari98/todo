@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\ResetPasswordMail;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -60,9 +61,15 @@ class UserController extends Controller
     }
 
     public function updateNewPassword(Request $request) {
+        // dd($request);
+        $db_token = DB::table('password_resets')->where('email',$request->email)->first('token');
+        var_dump($db_token->token,$request->token);
+        if ($request->token != $db_token->token) {
+            return redirect()->route('login')->with('error','tokenは変更しました。');
+        };
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|exists:users,email',
-            'password' => 'required',
+            'password' => 'required|min:6',
             'password_confirmation' => 'required|same:password'
         ]);
         $validator->setAttributeNames([
@@ -71,6 +78,8 @@ class UserController extends Controller
             'password_confirmation' => '確認パスワード',
         ]);
         $validator->validate();
+        
+        
 
         $user = User::where('email',$request->email)->first();
         $user->password = Hash::make($request->password);

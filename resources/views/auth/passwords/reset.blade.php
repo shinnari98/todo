@@ -7,14 +7,13 @@
             <nav class="panel panel-default">
                 <div class="panel-heading p-3">パスワード再発行</div>
                 <div class="panel-body p-3">
-                    @if($errors->any())
-                    {{-- @php var_dump($errors); @endphp --}}
+                    {{-- @if($errors->any())
                     <div class="alert alert-danger">
                         @foreach($errors->all() as $message)
                         <p>{{ $message }}</p>
                         @endforeach
                     </div>
-                    @endif
+                    @endif --}}
                     <form action="{{ route('newPassword.update') }}" method="POST">
                         @csrf
                         <input type="hidden" name="token" value="{{$token}}">

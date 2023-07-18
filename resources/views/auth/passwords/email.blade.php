@@ -6,9 +6,9 @@
         <nav class="panel panel-default">
             <div class="panel-heading p-3">パスワード再発行</div>
             <div class="panel-body p-3">
-                @if (session('status'))
+                @if (session('success'))
                 <div class="alert alert-success" role="alert">
-                    {{ session('status') }}
+                    {{ session('success') }}
                 </div>
                 @endif
                 <form action="{{route('forgot.password.link') /* route('password.email') */ }}" method="POST">

@@ -17,18 +17,22 @@
                     <div class="form-group mt-2">
                         <label for="email">メールアドレス</label>
                         <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}" />
+                        <span class="text-danger">@error('email'){{$message}}@enderror</span>
                     </div>
                     <div class="form-group mt-2">
                         <label for="name">ユーザー名</label>
                         <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" />
+                        <span class="text-danger">@error('name'){{$message}}@enderror</span>
                     </div>
                     <div class="form-group mt-2">
                         <label for="password">パスワード</label>
                         <input type="password" class="form-control" id="password" name="password">
+                        <span class="text-danger">@error('password'){{$message}}@enderror</span>
                     </div>
                     <div class="form-group mt-2">
                         <label for="password-confirm">パスワード（確認）</label>
                         <input type="password" class="form-control" id="password-confirm" name="password_confirmation">
+                        <span class="text-danger">@error('password_confirmation'){{$message}}@enderror</span>
                     </div>
                     <div class="pb-3 pt-3">
                         <button type="submit" class="btn btn-primary ">送信</button>
