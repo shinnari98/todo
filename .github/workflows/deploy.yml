@@ -41,4 +41,4 @@ jobs:
       - run: ln -s ~/public_html/shinnari.shop/todo/public/robots.txt ~/public_html/robots.txt
       - run: ln -s ~/public_html/shinnari.shop/todo/public/favicon.ico  ~/public_html/favicon.ico
           # Thực hiện các bước triển khai như cài đặt và chạy ứng dụng Laravel trên máy chủ web của bạn
-          # Ví dụ: git pull, artisan migrate, artisan optimize, ...
+          # Ví dụ: git pull, artisan migrate, artisan optimize
