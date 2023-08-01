@@ -1,0 +1,44 @@
+name: Auto Deploy
+
+on:
+  push:
+    branches:
+      - develop  # Thay thế "main" bằng tên nhánh mà bạn muốn triển khai tự động
+
+jobs:
+  build:
+    runs-on: self-hosted #ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'  # Thay thế bằng phiên bản PHP bạn đang sử dụng
+
+      - name: Install Dependencies
+        run: composer install
+
+      - name: Run Tests
+        run: composer test
+      
+      - name: Install NPM
+        run: npm install
+      
+      - name: Run DEV
+        run: npm run dev
+
+      - name: Deploy to Server
+        run: php artisan migrate
+      - run: php artisan db:seed
+      - run: ln -s ~/public_html/shinnari.shop/todo/public/index.php ~/public_html/index.php
+      - run: ln -s ~/public_html/shinnari.shop/todo/public/.htaccess ~/public_html/.htaccess
+      - run: ln -s ~/public_html/shinnari.shop/todo/public/js ~/public_html/js
+      - run: ln -s ~/public_html/shinnari.shop/todo/public/css ~/public_html/css
+      - run: ln -s ~/public_html/shinnari.shop/todo/public/img ~/public_html/img
+      - run: ln -s ~/public_html/shinnari.shop/todo/public/robots.txt ~/public_html/robots.txt
+      - run: ln -s ~/public_html/shinnari.shop/todo/public/favicon.ico  ~/public_html/favicon.ico
+          # Thực hiện các bước triển khai như cài đặt và chạy ứng dụng Laravel trên máy chủ web của bạn
+          # Ví dụ: git pull, artisan migrate, artisan optimize, ...
