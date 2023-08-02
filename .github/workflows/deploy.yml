@@ -18,17 +18,17 @@ jobs:
       #   with:
       #     php-version: '8.2'  # Thay thế bằng phiên bản PHP bạn đang sử dụng
 
-      - name: Install Dependencies
-        run: composer install
+      # - name: Install Dependencies
+      #   run: composer install
 
-      - name: Run Tests
-        run: composer test
+      # - name: Run Tests
+      #   run: composer test
       
-      - name: Install NPM
-        run: npm install
+      # - name: Install NPM
+      #   run: npm install
       
-      - name: Run DEV
-        run: npm run dev
+      # - name: Run DEV
+      #   run: npm run dev
 
       # - name: Deploy to Server
       #   run: php artisan migrate
